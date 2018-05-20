@@ -1,0 +1,18 @@
+{% extends 'templates/app.html' %}
+{% block title %}Register{% endblock %}
+{% block content%}
+<form method="POST" action="{{ base_url() }}/register">
+  <fieldset>
+    <legend>Register</legend>
+    <div class="input-group fluid">
+      <label for="username">Username</label>
+      <input type="text" name="username" placeholder="Username">
+    </div>
+    <div class="input-group fluid">
+      <label for="pwd">Password</label>
+      <input type="password" name="password" placeholder="Password">
+    </div>
+    <input type="submit" value="Register">
+  </fieldset>
+</form>
+{% endblock %}
