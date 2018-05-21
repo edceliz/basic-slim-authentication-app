@@ -1,9 +1,12 @@
 {% extends 'templates/app.html' %}
-{% block title %}Register{% endblock %}
+{% block title %}Login{% endblock %}
 {% block content%}
-<form method="POST" action="{{ path_for('auth.register') }}">
+<form method="POST" action="{{ path_for('auth.login') }}">
   <fieldset>
-    <legend>Register</legend>
+    <legend>Login</legend>
+    {% if status %}
+    <p>Incorrect credentials!</p>
+    {% endif %}
     <div class="input-group fluid">
       <label for="username">Username</label>
       <input type="text" name="username" placeholder="Username" required>
