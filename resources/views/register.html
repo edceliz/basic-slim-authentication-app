@@ -4,6 +4,11 @@
 <form method="POST" action="{{ path_for('auth.register') }}">
   <fieldset>
     <legend>Register</legend>
+    {% for name, value in errors %}
+      {% for error in value %}
+        {{ error }}
+      {% endfor %}
+    {% endfor %}
     <div class="input-group fluid">
       <label for="username">Username</label>
       <input type="text" name="username" placeholder="Username" required>

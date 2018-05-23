@@ -1,6 +1,9 @@
 <?php
+  use Respect\Validation\Validator;
+
   session_start();
   require_once(__DIR__ . '/../vendor/autoload.php');
+
 
   $container = new Slim\Container();
   $container->settings['displayErrorDetails'] = true;
@@ -31,6 +34,12 @@
     ));
     return $view;
   };
+
+  $container['validator'] = function () {
+    return new App\Validation\Validator;
+  };
+
+  Validator::with('App\Validation\Rules');
 
   $container['HomeController'] = function ($container) {
     return new App\Controllers\HomeController($container);
