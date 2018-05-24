@@ -41,6 +41,16 @@
 
   Validator::with('App\Validation\Rules');
 
+  $container['csrf'] = function ($container) {
+    // TODO: Add CSRF error middleware.
+    $guard = new Slim\Csrf\Guard();
+    $guard->setFailureCallable(function ($req, $res, $next) {
+      $req = $req->withAttribute("csrf_status", false);
+      return $next($req, $res);
+    });
+    return $guard;
+  };
+
   $container['HomeController'] = function ($container) {
     return new App\Controllers\HomeController($container);
   };
