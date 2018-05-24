@@ -1,6 +1,6 @@
 <?php
   namespace App\Controllers;
-
+  
   use App\Models\User;
   use Respect\Validation\Validator as v;
 
@@ -30,15 +30,20 @@
     }
 
     function postLogin($req, $res) {
-      $user = User::where('username', $req->getParam('username'))->first();
       $validation = $this->validator->validate($req, [
         'username' => v::noWhiteSpace()->notEmpty(),
         'password' => v::noWhiteSpace()->notEmpty()
       ]);
-      if ($user && !$validation->failed()) {
-        var_dump(password_verify($req->getParam('password'), $user->password));
-      } else {
+      if ($validation->failed()) {
         return $res->withRedirect($this->router->pathFor('auth.get.login'));
       }
+      if ($this->auth->attempt(
+        $req->getParam('username'),
+        $req->getParam('password')
+      )) {
+        return $res->withRedirect('/');
+      }
+      $_SESSION['errors']['login'] = ['Incorrect user credentials']; 
+      return $res->withRedirect($this->router->pathFor('auth.get.login'));
     }
   }

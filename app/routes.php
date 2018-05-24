@@ -1,5 +1,6 @@
 <?php
-  $app->get('/', 'HomeController:index');
+  $app->get('/', 'HomeController:index')
+    ->add(new App\Middlewares\User($container));
 
   $app->get('/register', 'AuthController:getRegister')
     ->add(new App\Middlewares\ValidationErrors($container))
@@ -17,3 +18,8 @@
   $app->post('/login', 'AuthController:postLogin')
     ->setName('auth.login')
     ->add($container->csrf);
+
+  $app->get('/logout', function ($req, $res) {
+    App\Auth\Auth::logout();
+    return $res->withRedirect('/login');
+  });

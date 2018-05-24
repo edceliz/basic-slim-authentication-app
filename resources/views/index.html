@@ -1,5 +1,10 @@
 {% extends 'templates/app.html' %}
 {% block title %}Home{% endblock %}
+
+{% block menu%}
+  <a href="/logout" class="button">Logout</a>
+{% endblock %}
+
 {% block content%}
-  hello
+  Hello {% if user %} User #{{ user }}{% endif %}
 {% endblock %}

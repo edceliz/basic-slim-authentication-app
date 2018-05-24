@@ -10,8 +10,10 @@
 <body>
   <header>
     <a href="/" class="logo">Slim Practice</a>
+    {% block menu %}
     <a href="/login" class="button">Login</a>
     <a href="/register" class="button">Register</a>
+    {% endblock %}
   </header>
   <div class="container">
     {% block content %}{% endblock %}

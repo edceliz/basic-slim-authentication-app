@@ -5,6 +5,6 @@
 
   class HomeController extends Controller {
     function index($req, $res) {
-      return $this->view->render($res, 'index.html', ['name' => 'Edcel']);
+      return $this->view->render($res, 'index.html');
     }
   }

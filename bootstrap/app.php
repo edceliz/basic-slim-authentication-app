@@ -44,11 +44,16 @@
   $container['csrf'] = function ($container) {
     // TODO: Add CSRF error middleware.
     $guard = new Slim\Csrf\Guard();
-    $guard->setFailureCallable(function ($req, $res, $next) {
-      $req = $req->withAttribute("csrf_status", false);
-      return $next($req, $res);
-    });
+    // Prepare request for next middleware for CSRF error handling.
+    // $guard->setFailureCallable(function ($req, $res, $next) {
+    //   $req = $req->withAttribute("csrf_status", false);
+    //   return $next($req, $res);
+    // });
     return $guard;
+  };
+
+  $container['auth'] = function ($container) {
+    return new App\Auth\Auth;
   };
 
   $container['HomeController'] = function ($container) {
